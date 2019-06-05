@@ -1,0 +1,212 @@
+player.onChat(".dig", function () {
+    P = [0, 0, 0]
+    P[0] = agent.getPosition().getValue(Axis.X)
+    P[1] = agent.getPosition().getValue(Axis.Y)
+    P[2] = agent.getPosition().getValue(Axis.Z)
+    for (let y = 0; y <= P[1] - 5; y++) {
+        for (let x = 0; x <= 15; x++) {
+            for (let d = 0; d <= 15; d++) {
+                agent.teleport(positions.createWorld(P[0] + x, P[1] - y, P[2] + d), CompassDirection.East)
+                while (agent.detect(AgentDetection.Block, SixDirection.Forward)) {
+                    agent.destroy(SixDirection.Forward)
+                    agent.collectAll()
+                }
+            }
+            agent.teleport(positions.createWorld(1146, 72, -6), CompassDirection.West)
+            agent.dropAll(SixDirection.Forward)
+            loops.pause(500)
+        }
+    }
+})
+player.onChat(".killme", function () {
+    player.say("The three laws of robotics are merely science fiction.")
+    mobs.kill(
+    mobs.target(TargetSelectorKind.LocalPlayer)
+    )
+})
+player.onChat(".robotfight", function () {
+    agent.teleport(positions.createWorld(1252, 73, 13), CompassDirection.North)
+    while (true) {
+        agent.attack(SixDirection.Forward)
+    }
+})
+player.onDied(function () {
+    agent.teleport(player.position(), CompassDirection.West)
+    agent.collectAll()
+    agent.move(SixDirection.Forward, 2)
+    for (let i = 0; i < 4; i++) {
+        agent.collectAll()
+        agent.move(SixDirection.Forward, 2)
+        agent.collectAll()
+        agent.turn(TurnDirection.Left)
+    }
+    agent.teleport(positions.createWorld(1149, 63, -7), CompassDirection.West)
+})
+player.onChat(".fixshit", function () {
+    gameplay.xp(500, mobs.target(TargetSelectorKind.LocalPlayer))
+})
+player.onChat(".bs", function () {
+    blocks.place(blocks.block(Block.Hopper), player.position())
+})
+player.onChat(".45", function () {
+    agent.turn(TurnDirection.Left)
+})
+player.onChat(".insp", function () {
+    player.say("" + agent.inspect(AgentInspection.Block, SixDirection.Forward))
+})
+player.onChat(".torch", function () {
+    blocks.place(blocks.block(Block.Torch), agent.getPosition())
+})
+player.onChat(".torchhere", function () {
+    P[0] = agent.getPosition().getValue(Axis.X)
+    P[1] = agent.getPosition().getValue(Axis.Y)
+    P[2] = agent.getPosition().getValue(Axis.Z)
+    agent.teleportToPlayer()
+    blocks.place(blocks.block(Block.Torch), agent.getPosition())
+    loops.pause(500)
+    agent.teleport(positions.createWorld(P[0], P[1], P[2]), CompassDirection.West)
+})
+player.onChat(".findrobot", function () {
+    player.teleport(agent.getPosition())
+})
+player.onChat(".beet", function () {
+    P[0] = agent.getPosition().getValue(Axis.X)
+    P[1] = agent.getPosition().getValue(Axis.Y)
+    P[2] = agent.getPosition().getValue(Axis.Z)
+    agent.setItem(blocks.block(Block.Beetroot), 16, 1)
+    agent.teleportToPlayer()
+    agent.dropAll(SixDirection.Down)
+    loops.pause(500)
+    agent.teleport(positions.createWorld(P[0], P[1], P[2]), CompassDirection.West)
+})
+player.onChat(".fb", function () {
+    gameplay.title(mobs.target(TargetSelectorKind.AllPlayers), "Fuckin' Berries", "the fuckin' movie")
+})
+player.onChat(".fillshit", function () {
+    for (let z = 0; z <= 32 - 1; z++) {
+        for (let a = 0; a <= 32 - 1; a++) {
+            agent.teleport(positions.createWorld(1281 + z, 68, 2 + a), CompassDirection.West)
+            blocks.place(blocks.block(Block.Grass), agent.getPosition())
+        }
+    }
+})
+player.onChat(".whereami", function () {
+    player.say("" + player.position())
+})
+player.onChat(".dropall", function () {
+    agent.dropAll(SixDirection.Forward)
+})
+player.onChat(".raspberry", function () {
+    player.teleport(positions.createWorld(2708, 60, 1224))
+})
+player.onChat(".testb", function () {
+    player.teleport(positions.createWorld(1149, 63, -7))
+})
+player.onChat(".digshit", function () {
+    P = [0, 0, 0]
+    P[0] = agent.getPosition().getValue(Axis.X)
+    P[1] = agent.getPosition().getValue(Axis.Y)
+    P[2] = agent.getPosition().getValue(Axis.Z)
+    for (let y = 0; y <= P[1] - 5; y++) {
+        for (let x = 0; x <= 15; x++) {
+            for (let d = 0; d <= 15; d++) {
+                agent.teleport(positions.createWorld(P[0] + x, P[1] - y, P[2] + d), CompassDirection.West)
+                while (agent.detect(AgentDetection.Block, SixDirection.Down)) {
+                    agent.destroy(SixDirection.Down)
+                    agent.collectAll()
+                }
+            }
+            agent.teleport(positions.createWorld(1146, 72, -6), CompassDirection.West)
+            agent.dropAll(SixDirection.Forward)
+            loops.pause(500)
+        }
+    }
+})
+player.onChat("set yourself on fire", function () {
+    blocks.place(blocks.block(Block.Fire), agent.getPosition())
+})
+player.onChat(".dump", function () {
+    P[0] = agent.getPosition().getValue(Axis.X)
+    P[1] = agent.getPosition().getValue(Axis.Y)
+    P[2] = agent.getPosition().getValue(Axis.Z)
+    agent.teleport(positions.createWorld(1146, 72, -6), CompassDirection.West)
+    agent.dropAll(SixDirection.Forward)
+    loops.pause(500)
+    agent.teleport(positions.createWorld(P[0], P[1], P[2]), CompassDirection.West)
+})
+player.onChat(".blowup", function () {
+    agent.destroy(SixDirection.Forward)
+    blocks.place(blocks.block(Block.TNT), agent.getPosition())
+    agent.move(SixDirection.Back, 1)
+})
+player.onChat(".make", function () {
+    list = [0, 0]
+    for (let b = 0; b <= 32; b++) {
+        for (let c = 0; c <= 32; c++) {
+            // if (agent.detect(AgentDetection.Block,
+            // SixDirection.Forward)) {
+            // agent.destroy(SixDirection.Forward) }
+            if ((b & c) > 0) {
+            	
+            } else {
+                agent.teleport(positions.createWorld(2559 + b, 64 + c, 966), CompassDirection.East)
+                blocks.place(blocks.block(Block.Grass), agent.getPosition())
+                gameplay.title(mobs.target(TargetSelectorKind.LocalPlayer), "x:" + b + " y:" + c, "")
+            }
+            list[0]++
+        }
+        list[1]++
+    }
+})
+player.onChat(".locate", function () {
+    player.say("" + agent.getPosition())
+})
+player.onChat(".robothere", function () {
+    agent.teleportToPlayer()
+})
+player.onChat(".test", function () {
+    P2 = [0, 0, 0]
+    P2[0] = agent.getPosition().getValue(Axis.X)
+    P2[1] = agent.getPosition().getValue(Axis.Y)
+    P2[2] = agent.getPosition().getValue(Axis.Z)
+    player.say("x:" + P2[0] % 16 + " z:" + P2[2] % 16)
+})
+player.onChat(".f1", function () {
+    agent.move(SixDirection.Forward, 1)
+})
+player.onChat(".u1", function () {
+    agent.move(SixDirection.Up, 1)
+})
+player.onChat(".hs", function () {
+    agent.setItem(blocks.block(Block.Glass), 64, 1)
+})
+player.onChat(".180", function () {
+    agent.turn(TurnDirection.Left)
+    agent.turn(TurnDirection.Left)
+})
+player.onChat(".d1", function () {
+    agent.move(SixDirection.Down, 1)
+})
+player.onChat(".f25", function () {
+    agent.move(SixDirection.Forward, 25)
+})
+player.onChat(".f5", function () {
+    agent.move(SixDirection.Forward, 5)
+})
+player.onChat(".punch", function () {
+    for (let i = 0; i < 5; i++) {
+        agent.attack(SixDirection.Forward)
+    }
+})
+player.onChat(".kitchen", function () {
+    agent.teleport(positions.createWorld(2716, 61, 1206), CompassDirection.South)
+})
+player.onChat(".tr", function () {
+    agent.turn(TurnDirection.Left)
+})
+player.onChat(".tl", function () {
+    agent.turn(TurnDirection.Left)
+})
+let P2: number[] = []
+let P: number[] = []
+let list: number[] = []
