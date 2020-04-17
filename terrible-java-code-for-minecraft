@@ -1,3 +1,4 @@
+# This is a comment
 player.onChat(".dig", function () {
     P = [0, 0, 0]
     P[0] = agent.getPosition().getValue(Axis.X)
